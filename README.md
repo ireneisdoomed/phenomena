@@ -36,7 +36,7 @@ The latest developments in text mining and large language models will be used to
 
 #### 1. Generation of a dataset that establishes the most relevant phenotypes for each disease.
 
-- To mine the literature we will use the PUBMED dataset as a base, which contains over 30 million scientific articles and is made available in the HuggingFace platform here: https://huggingface.co/datasets/pubmed. As an alternative, and if the missing data is too large, we can use [The Pile dataset](https://pile.eleuther.ai/).
+- To mine the literature we will use the PUBMED dataset as a base, which contains over 30 million scientific articles and is made available in the HuggingFace platform here: https://huggin    gface.co/datasets/pubmed. As an alternative, and if the missing data is too large, we can use [The Pile dataset](https://pile.eleuther.ai/).
 
 - To extract the phenotypes/diseases from the literature we will use one of the many pre-trained models available.
   - BioBERT Diseases NER: [alvaroalon2/biobert_diseases_ner](https://huggingface.co/alvaroalon2/biobert_diseases_ner)

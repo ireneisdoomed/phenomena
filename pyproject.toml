@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "phenomena"
+version = "0.1.0"
+description = "Mining disease phenotypes"
+authors = ["Irene López <irene.lopezs@protonmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.8"
+datasets = "^2.10.1"
+transformers = "^4.27.3"
+pandas = "^1.5.3"
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.11.0"
+langchain = "^0.0.123"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
