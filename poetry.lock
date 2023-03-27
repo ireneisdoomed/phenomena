@@ -329,6 +329,22 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "importlib-metadata"
+version = "6.1.0"
+description = "Read metadata from Python packages"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+zipp = ">=0.5"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+perf = ["ipython"]
+testing = ["flake8 (<5)", "flufl.flake8", "importlib-resources (>=1.3)", "packaging", "pyfakefs", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)", "pytest-perf (>=0.9.2)"]
+
+[[package]]
 name = "ipykernel"
 version = "6.22.0"
 description = "IPython Kernel for Jupyter"
@@ -418,6 +434,7 @@ optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
+importlib-metadata = {version = ">=4.8.3", markers = "python_version < \"3.10\""}
 jupyter-core = ">=4.12,<5.0.0 || >=5.1.0"
 python-dateutil = ">=2.8.2"
 pyzmq = ">=23.0"
@@ -566,7 +583,7 @@ optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-numpy = {version = ">=1.21.0", markers = "python_version >= \"3.10\""}
+numpy = {version = ">=1.20.3", markers = "python_version < \"3.10\""}
 python-dateutil = ">=2.8.1"
 pytz = ">=2020.1"
 
@@ -658,6 +675,14 @@ python-versions = "*"
 tests = ["pytest"]
 
 [[package]]
+name = "py4j"
+version = "0.10.9.5"
+description = "Enables Python programs to dynamically access arbitrary Java objects"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "pyarrow"
 version = "11.0.0"
 description = "Python library for Apache Arrow"
@@ -701,6 +726,23 @@ python-versions = ">=3.6"
 
 [package.extras]
 plugins = ["importlib-metadata"]
+
+[[package]]
+name = "pyspark"
+version = "3.3.2"
+description = "Apache Spark Python API"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+py4j = "0.10.9.5"
+
+[package.extras]
+ml = ["numpy (>=1.15)"]
+mllib = ["numpy (>=1.15)"]
+pandas-on-spark = ["numpy (>=1.15)", "pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
+sql = ["pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
 
 [[package]]
 name = "python-dateutil"
@@ -1031,10 +1073,22 @@ python-versions = ">=3.7"
 idna = ">=2.0"
 multidict = ">=4.0"
 
+[[package]]
+name = "zipp"
+version = "3.15.0"
+description = "Backport of pathlib-compatible object wrapper for zip files"
+category = "dev"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
+testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
+
 [metadata]
 lock-version = "1.1"
-python-versions = "3.10.8"
-content-hash = "6c6b414d5042d3ab04aac2927cdb6b183fbd0dc81f58ac1165c0853b1898852f"
+python-versions = "3.8.15"
+content-hash = "4c4a0a5adf264a08c6c2161d796d62e7171c45801a013aa51cc08df08d7c4fed"
 
 [metadata.files]
 aiohttp = [
@@ -1498,6 +1552,10 @@ idna = [
     {file = "idna-3.4-py3-none-any.whl", hash = "sha256:90b77e79eaa3eba6de819a0c442c0b4ceefc341a7a2ab77d7562bf49f425c5c2"},
     {file = "idna-3.4.tar.gz", hash = "sha256:814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4"},
 ]
+importlib-metadata = [
+    {file = "importlib_metadata-6.1.0-py3-none-any.whl", hash = "sha256:ff80f3b5394912eb1b108fcfd444dc78b7f1f3e16b16188054bd01cb9cb86f09"},
+    {file = "importlib_metadata-6.1.0.tar.gz", hash = "sha256:43ce9281e097583d758c2c708c4376371261a02c34682491a8e98352365aad20"},
+]
 ipykernel = [
     {file = "ipykernel-6.22.0-py3-none-any.whl", hash = "sha256:1ae6047c1277508933078163721bbb479c3e7292778a04b4bacf0874550977d6"},
     {file = "ipykernel-6.22.0.tar.gz", hash = "sha256:302558b81f1bc22dc259fb2a0c5c7cf2f4c0bdb21b50484348f7bafe7fb71421"},
@@ -1741,6 +1799,10 @@ pure-eval = [
     {file = "pure_eval-0.2.2-py3-none-any.whl", hash = "sha256:01eaab343580944bc56080ebe0a674b39ec44a945e6d09ba7db3cb8cec289350"},
     {file = "pure_eval-0.2.2.tar.gz", hash = "sha256:2b45320af6dfaa1750f543d714b6d1c520a1688dec6fd24d339063ce0aaa9ac3"},
 ]
+py4j = [
+    {file = "py4j-0.10.9.5-py2.py3-none-any.whl", hash = "sha256:52d171a6a2b031d8a5d1de6efe451cf4f5baff1a2819aabc3741c8406539ba04"},
+    {file = "py4j-0.10.9.5.tar.gz", hash = "sha256:276a4a3c5a2154df1860ef3303a927460e02e97b047dc0a47c1c3fb8cce34db6"},
+]
 pyarrow = [
     {file = "pyarrow-11.0.0-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:40bb42afa1053c35c749befbe72f6429b7b5f45710e85059cdd534553ebcf4f2"},
     {file = "pyarrow-11.0.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:7c28b5f248e08dea3b3e0c828b91945f431f4202f1a9fe84d1012a761324e1ba"},
@@ -1813,6 +1875,9 @@ pydantic = [
 pygments = [
     {file = "Pygments-2.14.0-py3-none-any.whl", hash = "sha256:fa7bd7bd2771287c0de303af8bfdfc731f51bd2c6a47ab69d117138893b82717"},
     {file = "Pygments-2.14.0.tar.gz", hash = "sha256:b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297"},
+]
+pyspark = [
+    {file = "pyspark-3.3.2.tar.gz", hash = "sha256:0dfd5db4300c1f6cc9c16d8dbdfb82d881b4b172984da71344ede1a9d4893da8"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
@@ -2342,4 +2407,8 @@ yarl = [
     {file = "yarl-1.8.2-cp39-cp39-win32.whl", hash = "sha256:cb6d48d80a41f68de41212f3dfd1a9d9898d7841c8f7ce6696cf2fd9cb57ef83"},
     {file = "yarl-1.8.2-cp39-cp39-win_amd64.whl", hash = "sha256:6604711362f2dbf7160df21c416f81fac0de6dbcf0b5445a2ef25478ecc4c778"},
     {file = "yarl-1.8.2.tar.gz", hash = "sha256:49d43402c6e3013ad0978602bf6bf5328535c48d192304b91b97a3c6790b1562"},
+]
+zipp = [
+    {file = "zipp-3.15.0-py3-none-any.whl", hash = "sha256:48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556"},
+    {file = "zipp-3.15.0.tar.gz", hash = "sha256:112929ad649da941c23de50f356a2b5570c954b65150642bccdd66bf194d224b"},
 ]
