@@ -6,7 +6,9 @@ The expected timelines and deliverables are described in the Projects tab.
 
 ## What are we trying to solve?
 
-Having a better understanding of the relationships between diseases and phenotypes can help in many ways:
+I want like to know which symptoms are most likely to be associated with asthma. Let's give a simplistic example and say that people with asthma are often allergic to aspirin. We have a set of candidate genes that we have linked to asthma, and a similar set of genes has been linked to aspirin hypersensitivity. What if the fact that the patients had asthma was confounding the evidence for aspirin allergy? What if we are really talking about the same signal?
+
+Having a better characterisation of a disease like depression can help in many ways:
 
 - **Uncover new mechanistic insights**. Identification of new molecular pathways that are involved in the disease, and which may be potential drug targets.
 - **Uncover new disease biomarkers**. Identification of molecules or patterns tart are over-represented in the presence of disease. 
@@ -36,7 +38,7 @@ The latest developments in text mining and large language models will be used to
 
 #### 1. Generation of a dataset that establishes the most relevant phenotypes for each disease.
 
-- To mine the literature we will use the PUBMED dataset as a base, which contains over 30 million scientific articles and is made available in the HuggingFace platform here: https://huggin    gface.co/datasets/pubmed. As an alternative, and if the missing data is too large, we can use [The Pile dataset](https://pile.eleuther.ai/).
+- To mine the literature we will use the PUBMED dataset as a base, which contains over 30 million scientific articles and is made available in the HuggingFace platform here: https://huggingface.co/datasets/pubmed. As an alternative, and if the missing data is too large, we can use [The Pile dataset](https://pile.eleuther.ai/).
 
 - To extract the phenotypes/diseases from the literature we will use one of the many pre-trained models available.
   - BioBERT Diseases NER: [alvaroalon2/biobert_diseases_ner](https://huggingface.co/alvaroalon2/biobert_diseases_ner)
