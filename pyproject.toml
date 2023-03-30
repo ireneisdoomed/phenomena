@@ -6,7 +6,7 @@ authors = ["Irene López <irene.lopezs@protonmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.10.8"
+python = "3.10.10"
 datasets = "^2.10.1"
 transformers = "^4.27.3"
 pandas = "^1.5.3"
