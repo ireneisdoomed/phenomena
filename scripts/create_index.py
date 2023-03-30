@@ -5,6 +5,14 @@ import pyspark.sql.functions as f
 import pinecone
 import time
 import itertools
+import os 
+import nomic
+from nomic import atlas
+
+def load_index():
+    pinecone_api_key = os.getenv("PINECONE_TOKEN")
+    pinecone.init(api_key=pinecone_api_key, environment="us-west4-gcp")
+    return pinecone.Index("phenomena")
 
 def get_embeddings(texts, batch_size = 500):
     texts_chunks = []
@@ -31,6 +39,16 @@ def insert_data_vector_store(data, index):
     for ids_vectors_chunk in chunks(data, batch_size=100):
         index.upsert(vectors=ids_vectors_chunk)
 
+def create_atlas_mapping(ids,embeddings,metadata):
+    nomic_api_key = os.getenv("NOMIC_TOKEN")
+    nomic.login(nomic_api_key)
+    data=[{'id': id, 'isPhenotype':meta['isPhenotype'],'isDisease':meta['isDisease'],} for id, meta in zip(ids, metadata)]
+
+    atlas.map_embeddings(embeddings=embeddings,
+                        data=data,
+                        id_field='id',
+                        colorable_fields=['isPhenotype','isDisease']
+                        )
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -55,9 +73,9 @@ embeddings_list_flat = [text for batch in embeddings_list for text in batch]
 data = list(zip(ids, embeddings_list_flat, metadata))
 
 
-pinecone.init(api_key="", environment="us-west4-gcp")
-index = pinecone.Index("phenomena")
-insert_data_vector_store(data, index)
+load_index()
+insert_data_vector_store(data, "phenomena")
+create_atlas_mapping(ids,embeddings,metadata)
 
 # test similarity with diabetes
 for i, e in enumerate(data):
@@ -71,6 +89,7 @@ for i, e in enumerate(data):
         for e in res["matches"]:
             print(e["id"])
             print(e["score"])
+
 
 
 # export results to tsv to visualise in https://projector.tensorflow.org/
