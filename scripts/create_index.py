@@ -1,11 +1,9 @@
 
 from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Pinecone
 from pyspark.sql import SparkSession
 import pyspark.sql.functions as f
 import pinecone
 import time
-import random
 import itertools
 
 def get_embeddings(texts, batch_size = 500):
