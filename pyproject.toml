@@ -13,6 +13,8 @@ pandas = "^1.5.3"
 pyspark = "^3.3.2"
 openai = "^0.27.2"
 pinecone-client = "^2.2.1"
+nomic = "^1.1.2"
+load-dotenv = "^0.1.0"
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.11.0"

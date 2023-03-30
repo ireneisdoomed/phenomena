@@ -5,13 +5,19 @@ import pyspark.sql.functions as f
 import pinecone
 import time
 import itertools
+from dotenv import load_dotenv
 import os 
 import nomic
 from nomic import atlas
+import numpy as np
 
-def load_index():
+load_dotenv()
+
+
+def create_and_load_index():
     pinecone_api_key = os.getenv("PINECONE_TOKEN")
     pinecone.init(api_key=pinecone_api_key, environment="us-west4-gcp")
+    pinecone.create_index("phenomena", dimension=1536)
     return pinecone.Index("phenomena")
 
 def get_embeddings(texts, batch_size = 500):
@@ -66,16 +72,16 @@ ids = grouped_pdf["efo_id"].to_list()
 metadata = grouped_pdf.drop(["efo_id", "labels"], axis=1).to_dict(orient="records")
 
 # process embeddings
-embeddings = OpenAIEmbeddings(openai_api_key="", model="text-embedding-ada-002")
+embeddings = OpenAIEmbeddings(openai_api_key=os.getenv("OPENAI_TOKEN"), model="text-embedding-ada-002")
 embeddings_list = get_embeddings(texts)
 embeddings_list_flat = [text for batch in embeddings_list for text in batch]
 
 data = list(zip(ids, embeddings_list_flat, metadata))
 
 
-load_index()
-insert_data_vector_store(data, "phenomena")
-create_atlas_mapping(ids,embeddings,metadata)
+index = create_and_load_index()
+insert_data_vector_store(data, index)
+create_atlas_mapping(ids, np.array(embeddings_list_flat), metadata)
 
 # test similarity with diabetes
 for i, e in enumerate(data):
