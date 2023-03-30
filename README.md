@@ -4,6 +4,8 @@ The project involves using machine learning and natural language processing tech
 
 The expected timelines and deliverables are described in the Projects tab. More details of the project inside the [docs](docs) folder.
 
+### 👉 Link to the project: https://ireneisdoomed-phenomena-app-pu8o79.streamlit.app/
+
 ## Set up
 
 Prerequirements:
@@ -12,7 +14,7 @@ Prerequirements:
 
 Install project dependencies:
 ```bash
-poetry env use 3.10.8
+poetry env use 3.10.10
 poetry install --sync
 ```
 
