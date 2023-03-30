@@ -1,4 +1,3 @@
-# load environment variables from .env file
 from dotenv import load_dotenv
 import os
 import pinecone
@@ -24,8 +23,8 @@ def query_index_by_text(text: str):
     print(f"The mapped term for {text} is: {id}")
     # get top 20 linked phenos
     phenotypes = get_phenotypes_for_disease(vector, 20, 0, index)
-    
-    for pheno in phenotypes["matches"]:
+    print(phenotypes)
+    for pheno in phenotypes:
         print(pheno["id"], pheno["score"]) # and also print label of id as metadata
     return phenotypes
 
@@ -40,18 +39,24 @@ def get_most_likely_efos(vector, index):
     )
 
     for e in top_5["matches"]:
-        if e["score"] < 0.9:
+        if e["score"] > 0.9:
             # add logic to choose efo by suggesting the user to choose from top 5 list
             print(f"Top scoring EFO ID: {e['id']} ({e['score']})")
         return e["id"], e["values"]
 
 def get_phenotypes_for_disease(disease_vector, top_k, threshold, index):
-    return index.query(
+    phenotypes = index.query(
             vector=disease_vector,
             top_k=top_k,
             filter={"isDisease": 0, "isPhenotype": 1},
             include_values=False,
     )
+    matches = []
+    for pheno in phenotypes["matches"]:
+        if pheno["score"] > threshold:
+            matches.append(pheno)
+
+    return matches
 
 if __name__ == "__main__":
     index = load_index()
